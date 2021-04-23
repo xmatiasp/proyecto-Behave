@@ -1,6 +1,6 @@
 from behave import *
 from selenium import webdriver
-from nose.tools import assert_equal
+from nose.tools import assert_equal,assert_true
 
 @given('the user is in the main page')
 def step_impl(context):
@@ -15,4 +15,12 @@ def step_impl(context):
 @then('the user should see dresses page')
 def step_impl(context):
     assert_equal(context.browser.find_element_by_class_name('cat-name').text, 'DRESSES ')
-    
+
+@when('the user searches by "{item}"')
+def step_impl(context,item):
+    context.browser.find_element_by_id('search_query_top').send_keys(item)
+    context.browser.find_element_by_name('submit_search').click()
+
+@then('the user should sees "{item}" banner in the results')
+def step_impl(context,item):
+    assert_true(item.upper() in context.browser.find_element_by_class_name('lighter').text)
