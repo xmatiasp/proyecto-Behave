@@ -1,6 +1,7 @@
 
 Feature: Search
 
+@search
 Scenario Outline: Search by items
   Given the user is in the main page
   When the user searches by "<item>"
